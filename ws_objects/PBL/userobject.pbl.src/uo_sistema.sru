@@ -22,6 +22,7 @@ String				is_espacio,&
 			
 Transaction		isqlcb
 end variables
+
 forward prototypes
 public function boolean uof_cargar_config (string as_path, ref string as_error)
 end prototypes
@@ -57,6 +58,7 @@ integer		li_rc
 OleObject	ole_wsh
 
 is_espacio		= string(char(13)) + string (char(10))
+isqlcb				= create transaction
 try
 	ole_wsh = CREATE OleObject
 	li_rc = ole_wsh.ConnectToNewObject ( "WScript.Network" )
@@ -82,4 +84,7 @@ on uo_sistema.destroy
 TriggerEvent( this, "destructor" )
 call super::destroy
 end on
+
+event destructor;destroy isqlcb
+end event
 

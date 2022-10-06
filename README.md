@@ -7,8 +7,8 @@ Proyecto desarrollado en PowerBuilder
 
 # Drivers de Conexion
 
-## MySQL
-mysq-connector-odbc
+## API
+Usaremos conceptos de Apis para la edición de datos
 
 ## SQLite
 sqliteodbc
