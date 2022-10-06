@@ -1,0 +1,46 @@
+﻿$PBExportHeader$f_carpetas_personales.srf
+global type f_carpetas_personales from function_object
+end type
+
+forward prototypes
+global function string f_carpetas_personales (integer an_tipo)
+end prototypes
+
+global function string f_carpetas_personales (integer an_tipo);oleobject  lob_ws
+string   ls_desktop
+
+lob_ws = CREATE oleobject
+lob_ws.ConnectToNewObject("wscript.Shell")
+
+choose case an_tipo
+ case 1 //  Escritorio (todos los usuario)
+  ls_desktop = lob_ws.SpecialFolders("AllUsersDesktop")
+ case 2 //  Menu de Inicio (todos los usuario)
+  ls_desktop = lob_ws.SpecialFolders("AllUsersStartMenu")
+ case 3 //  Programas (todos los usuario)
+  ls_desktop = lob_ws.SpecialFolders("AllUsersPrograms")
+ case 4 //  Inicio (todos los usuario)
+  ls_desktop = lob_ws.SpecialFolders("AllUsersStartup")
+ case 5 //  Escritorio
+  ls_desktop = lob_ws.SpecialFolders("Desktop")
+ case 6 //  Favoritos
+  ls_desktop = lob_ws.SpecialFolders("Favorites")
+ case 7 //  Mis Documentos
+  ls_desktop = lob_ws.SpecialFolders("MyDocuments")
+ case 8 //  Programas
+  ls_desktop = lob_ws.SpecialFolders("Programs")
+ case 9 //  Recientes
+  ls_desktop = lob_ws.SpecialFolders("Recent")
+ case 10 //  Enviados
+  ls_desktop = lob_ws.SpecialFolders("SendTo")
+ case 11 //  Menu de Inicio
+  ls_desktop = lob_ws.SpecialFolders("StartMenu")
+ case 12 //  Inicio
+  ls_desktop = lob_ws.SpecialFolders("Startup")
+end choose
+
+
+destroy lob_ws
+Return ls_desktop
+end function
+

@@ -1,0 +1,12 @@
+﻿$PBExportHeader$st_matriz.srs
+global type st_matriz from structure
+	datawindow		adw_matriz[]		descriptor "comment" = "Datawindow matriz, permite enviar mas de un datawindow."
+	string		as_matriz[]
+	long		al_matriz[]
+	integer		ai_matriz[]
+	boolean		abo_matriz[]
+	hprogressbar		ahpb_matriz[]
+	statictext		ast_matriz[]
+	datetime		adt_matriz[]
+end type
+

@@ -1,0 +1,17 @@
+﻿$PBExportHeader$f_cadena_vacio_nulo.srf
+global type f_cadena_vacio_nulo from function_object
+end type
+
+forward prototypes
+global function boolean f_cadena_vacio_nulo (string as_dato)
+end prototypes
+
+global function boolean f_cadena_vacio_nulo (string as_dato);/*
+REGRESA VERDADERO SI LA CADENA SE ENCUENTRA VACIO O NULO
+*/
+if isnull(as_dato) then return true
+if trim(as_dato)='' then return true
+if len(as_dato) = 0 then return true
+return false
+end function
+

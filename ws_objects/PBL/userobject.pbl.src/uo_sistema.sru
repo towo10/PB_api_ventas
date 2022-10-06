@@ -18,13 +18,17 @@ constant string	is_compania 				= 'SebaSoft',&
 
 String				is_espacio,&
 					is_computer,&
-					is_computer_user
+					is_computer_user,&
+					is_url,&
+					is_mail,&
+					is_pass
 			
 Transaction		isqlcb
 end variables
 
 forward prototypes
 public function boolean uof_cargar_config (string as_path, ref string as_error)
+public function boolean uof_request (string as_event, string as_proceso, string as_json, ref jsonpackage as_json_response, ref string as_error)
 end prototypes
 
 public function boolean uof_cargar_config (string as_path, ref string as_error);string ls_dbparm
@@ -48,9 +52,48 @@ else
 	as_error	= 'No se encontró el Archivo de Configuración, para volver a utilizar '+&
 	'el sistema necesita reinstalarlo.~n~rfile: '+as_path
 	return true
-END IF  
+END IF 
+
+/*Cargamos Datos Iniciales*/
+
+select url,email,pass into :is_url,:is_mail,:is_pass
+from servicio a
+where  a.id = (select max(x.id) from servicio x)
+using isqlcb;
+
 return false
 
+end function
+
+public function boolean uof_request (string as_event, string as_proceso, string as_json, ref jsonpackage as_json_response, ref string as_error);Integer li_rc
+String ls_string,ls_status
+HttpClient lnv_HttpClient
+
+lnv_HttpClient = Create HttpClient
+
+
+lnv_HttpClient.SetRequestHeader("Content-Type", "application/json;charset=UTF-8")
+li_rc = lnv_HttpClient.SendRequest(as_event, is_url+"/"+as_proceso, as_json, EncodingUTF8!)
+
+if li_rc = 1 and lnv_HttpClient.GetResponseStatusCode() = 200 then
+	lnv_HttpClient.GetResponseBody(ls_string)
+	as_json_response.loadstring(ls_string)
+elseif li_rc = -1 then
+	as_error = 'Error general del ApiRest'
+	return false
+elseif li_rc = -2 then
+	as_error = 'URL inválido'
+	return false
+elseif li_rc = -3 then
+	as_error = 'No se puede conectar a Internet, verifique los datos de conección'
+	return false
+elseif li_rc = -1 then
+	as_error = 'La consulta del Api demoró mas lo esperado, vuelva a intentarlo'
+	return false
+end if
+
+destroy lnv_HttpClient
+return true
 end function
 
 event constructor;string			ls_error
