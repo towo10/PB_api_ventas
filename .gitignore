@@ -1,0 +1,9 @@
+
+*.pbd
+*.opt
+*.db
+*.exe
+*.log
+ventas.xml
+
+Instalador/
