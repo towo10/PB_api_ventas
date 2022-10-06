@@ -10,6 +10,12 @@ global error error
 global message message
 end forward
 
+global variables
+uo_sistema 			guo_sistema
+datawindow			gdw_activo
+window				gw_activo,gw_mdi
+end variables
+
 global type ventas from application
 string appname = "ventas"
 string themepath = "C:\Program Files (x86)\Appeon\PowerBuilder 19.0\IDE\theme"
@@ -43,6 +49,18 @@ destroy(error)
 destroy(message)
 end on
 
-event open;open(w_login)
+event open;string ls_path,ls_error
+
+guo_sistema 	= create uo_sistema
+ls_path 			= GetCurrentDirectory() + '\info\system.db'
+
+if guo_sistema.uof_cargar_config(ls_path,ls_error) then 
+	MessageBox('Carga de Configuración',ls_error,StopSign!)
+	return
+end if
+open(w_login)
+end event
+
+event close;destroy guo_sistema
 end event
 
