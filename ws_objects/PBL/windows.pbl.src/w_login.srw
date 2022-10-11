@@ -26,7 +26,7 @@ end variables
 
 forward prototypes
 public subroutine wf_verificar_servicio ()
-public subroutine wf_iniciar_sesion ()
+public subroutine wf_iniciar_sesion (boolean abo_automatico)
 end prototypes
 
 public subroutine wf_verificar_servicio ();st_matriz			lst_matriz
@@ -44,7 +44,7 @@ iuo_servicio.post function uof_iniciar_proceso(iuo_traslado)
 SharedObjectUnRegister('iuo_servicio') 
 end subroutine
 
-public subroutine wf_iniciar_sesion ();String				ls_servicio,ls_json,ls_mail,ls_pass,ls_error,ls_status
+public subroutine wf_iniciar_sesion (boolean abo_automatico);String				ls_servicio,ls_json,ls_mail,ls_pass,ls_error,ls_status
 
 dw_1.accepttext( )
 ls_servicio	= dw_1.GetItemString(1,'flg_conectado')
@@ -52,7 +52,7 @@ ls_mail		= dw_1.GetItemString(1,'dsc_correo')
 ls_pass		= dw_1.GetItemString(1,'dsc_contrasena')
 
 
-if ls_servicio = 'N' then
+if ls_servicio = 'N' and not abo_automatico then
 	MessageBox('Error de Conexión','El servicio no se encuentra disponible, verifique la configuración de conección o contactenos a '+&
 	guo_sistema.is_mail_error_sistema,StopSign!)
 	return
@@ -74,7 +74,12 @@ ls_status 	= json_response.getvalue("status")
 json_result.loadstring(json_response.getvalue("result"))
 
 if ls_status = 'ok' then
-	MessageBox('ok',json_result.getvalue("token"))
+	guo_sistema.is_token = json_result.getvalue("token")
+	guo_sistema.ii_tienda = Integer(json_result.getvalue("idtienda"))
+	guo_sistema.ii_usuario = Integer(json_result.getvalue("idusuario"))
+	open(w_main)
+	close(w_login)
+	return
 else
 	MessageBox('Error',json_result.getvalue("error_message"))
 end if
@@ -99,6 +104,8 @@ end if
 if not f_cadena_vacio_nulo(guo_sistema.is_pass) then
 	dw_1.SetItem(1,'dsc_contrasena',guo_sistema.is_pass)
 	dw_1.SetItem(1,'flg_sesion_auto','S')	
+	
+	post wf_iniciar_sesion(true)
 end if
 
 end event
@@ -128,7 +135,7 @@ end event
 
 event clicked;choose case dwo.name
 	case 'p_iniciar'
-		wf_iniciar_sesion()
+		wf_iniciar_sesion(false)
 	case 'p_herramienta'
 		
 	case 'p_close'

@@ -21,11 +21,14 @@ String				is_espacio,&
 					is_computer_user,&
 					is_url,&
 					is_mail,&
-					is_pass
+					is_pass,&
+					is_token
+					
+Integer			ii_tienda,&
+					ii_usuario
 			
 Transaction		isqlcb
 end variables
-
 forward prototypes
 public function boolean uof_cargar_config (string as_path, ref string as_error)
 public function boolean uof_request (string as_event, string as_proceso, string as_json, ref jsonpackage as_json_response, ref string as_error)

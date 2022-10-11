@@ -7,7 +7,7 @@ footer(height=0 color="536870912" transparency="0" gradient.color="8421504" grad
 detail(height=1668 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
 table(column=(type=char(1000) updatewhereclause=yes name=dsc_correo dbname="dsc_correo" )
  column=(type=char(1000) updatewhereclause=yes name=dsc_contrasena dbname="dsc_contrasena" )
- column=(type=char(1) updatewhereclause=yes name=flg_conectado dbname="flg_conectado" initial="N" )
+ column=(type=char(1) updatewhereclause=yes name=flg_conectado dbname="flg_conectado" initial="S" )
  column=(type=char(1) updatewhereclause=yes name=flg_recordar dbname="flg_recordar" initial="N" values="Recordar cuenta	S/Recordar cuenta	N" )
  column=(type=char(1) updatewhereclause=yes name=flg_sesion_auto dbname="flg_sesion_auto" initial="N" values="Iniciar sesión automático	S/Iniciar sesión automático	N" )
  column=(type=char(1) updatewhereclause=yes name=flg_consultando dbname="flg_consultando" initial="N" )
