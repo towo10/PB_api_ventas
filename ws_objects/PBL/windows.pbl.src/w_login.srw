@@ -35,7 +35,6 @@ iuo_traslado	= create uo_traslado_sesion
 iuo_servicio = create uo_servicio_sesion
 
 lst_matriz.adw_matriz[1] = dw_1
-
 iuo_traslado.uof_setdatos(lst_matriz)
 
 SharedObjectRegister("uo_servicio_sesion", "iuo_servicio") 
@@ -112,11 +111,13 @@ end event
 
 event timer;is_consultando	= dw_1.GetItemString(1,'flg_consultando')
 if is_consultando = 'N' then &
-	wf_verificar_servicio()
+	post wf_verificar_servicio()
 end event
 
-event close;destroy iuo_traslado
+event close;
 destroy iuo_servicio
+destroy iuo_traslado
+
 end event
 
 type dw_1 from datawindow within w_login

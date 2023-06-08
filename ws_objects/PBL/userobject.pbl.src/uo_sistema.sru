@@ -25,13 +25,14 @@ String				is_espacio,&
 					is_token
 					
 Integer			ii_tienda,&
-					ii_usuario
-			
-Transaction		isqlcb
+					ii_usuario,&
+					ii_language
 end variables
+
 forward prototypes
 public function boolean uof_cargar_config (string as_path, ref string as_error)
 public function boolean uof_request (string as_event, string as_proceso, string as_json, ref jsonpackage as_json_response, ref string as_error)
+public function string uof_language (string as_ventana)
 end prototypes
 
 public function boolean uof_cargar_config (string as_path, ref string as_error);string ls_dbparm
@@ -41,12 +42,12 @@ IF Fileexists(as_path) THEN
 	ls_dbparm = ls_dbparm + "Database=" + as_path + "'"   
 	ls_dbparm = ls_dbparm + "UID=" + "admin" + ";PWD="  
 	ls_dbparm = ls_dbparm +  "'"   
-	isqlcb.DbParm=ls_dbparm   
-	isqlcb.autocommit = true
-	isqlcb.DBMS = "ODBC" 
+	sqlca.DbParm=ls_dbparm   
+	sqlca.autocommit = true
+	sqlca.DBMS = "ODBC" 
 	
-	connect using isqlcb;
-	if isqlcb.sqlcode <> 0 then
+	connect using sqlca;
+	if sqlca.sqlcode <> 0 then
 		as_error	= 'No se puede iniciar el sistema de configuración, revise si instaló el '+&
 		'driver: SQLite3 ODBC Driver.'
 		return true
@@ -59,10 +60,12 @@ END IF
 
 /*Cargamos Datos Iniciales*/
 
-select url,email,pass into :is_url,:is_mail,:is_pass
-from servicio a
-where  a.id = (select max(x.id) from servicio x)
-using isqlcb;
+select url,email,password,language_id into :is_url,:is_mail,:is_pass,:ii_language
+from setting a
+using sqlca;
+
+if IsNull(ii_language) or ii_language < 1 then &
+	ii_language = 1
 
 return false
 
@@ -99,12 +102,26 @@ destroy lnv_HttpClient
 return true
 end function
 
+public function string uof_language (string as_ventana);string	ls_string
+
+select 	value
+into		:ls_string
+from 		string
+where 	upper(data) = upper(:as_ventana)
+			and language_id = :ii_language
+using sqlca;
+
+if IsNull(ls_string) then &
+	ls_string = ''
+	
+return ls_string
+end function
+
 event constructor;string			ls_error
 integer		li_rc
 OleObject	ole_wsh
 
 is_espacio		= string(char(13)) + string (char(10))
-isqlcb				= create transaction
 try
 	ole_wsh = CREATE OleObject
 	li_rc = ole_wsh.ConnectToNewObject ( "WScript.Network" )
@@ -130,7 +147,4 @@ on uo_sistema.destroy
 TriggerEvent( this, "destructor" )
 call super::destroy
 end on
-
-event destructor;destroy isqlcb
-end event
 
