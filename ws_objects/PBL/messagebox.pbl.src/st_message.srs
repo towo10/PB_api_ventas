@@ -1,0 +1,10 @@
+﻿$PBExportHeader$st_message.srs
+global type st_message from structure
+	string		title
+	string		message
+	string		technical_message
+	string		type_message
+	boolean		show_technical
+	boolean		auto_center
+end type
+

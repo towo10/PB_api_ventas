@@ -1,0 +1,18 @@
+﻿$PBExportHeader$f_ok_transaccion.srf
+global type f_ok_transaccion from function_object
+end type
+
+forward prototypes
+global function boolean f_ok_transaccion (transaction atr_transaccion, ref long an_code, ref string as_message)
+end prototypes
+
+global function boolean f_ok_transaccion (transaction atr_transaccion, ref long an_code, ref string as_message);as_message =atr_transaccion.sqlerrtext
+an_code =atr_transaccion.sqldbcode
+if atr_transaccion.sqlcode <> -1 then
+	return true
+else
+	rollback using atr_transaccion;
+	return false
+end if
+end function
+

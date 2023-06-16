@@ -12,6 +12,7 @@ end forward
 
 global variables
 uo_sistema 			guo_sistema
+uo_message		guo_message
 datawindow			gdw_activo
 window				gw_activo,gw_mdi
 end variables
@@ -51,6 +52,7 @@ end on
 event open;string ls_path,ls_error
 
 guo_sistema 	= create uo_sistema
+guo_message	= create	uo_message
 ls_path 			= GetCurrentDirectory() + '\info\data.db'
 
 if guo_sistema.uof_cargar_config(ls_path,ls_error) then 
@@ -61,5 +63,7 @@ open(w_login_v2)
 end event
 
 event close;destroy guo_sistema
+destroy guo_message
+disconnect using sqlca;
 end event
 
