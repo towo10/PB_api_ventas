@@ -11,13 +11,13 @@ end type
 end forward
 
 global type w_xplistbar from window
+integer x = 5
 integer width = 1134
 integer height = 2424
 boolean border = false
 windowtype windowtype = child!
 long backcolor = 15780518
 string icon = "AppIcon!"
-boolean center = true
 event ue_clicked ( string as_text )
 event ue_agregar pbm_custom01
 st_1 st_1

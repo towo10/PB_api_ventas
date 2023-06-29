@@ -24,6 +24,10 @@ mdi_1 mdi_1
 end type
 global w_main w_main
 
+type variables
+
+end variables
+
 on w_main.create
 if this.MenuName = "m_dummy" then this.MenuID = create m_dummy
 this.mdi_1=create mdi_1
@@ -35,14 +39,7 @@ if IsValid(MenuID) then destroy(MenuID)
 destroy(this.mdi_1)
 end on
 
-event open;if IsValid(w_login_v2) then &
-	close(w_login_v2)
-
-title	= guo_sistema.uof_language(ClassName()+'_title')
-open(w_xplistbar,this)
-w_xplistbar.x = 10
-w_xplistbar.y = 10
-w_xplistbar.height = WorkSpaceHeight()
+event open;title	= guo_sistema.uof_language(ClassName()+'_title')
 end event
 
 type mdi_1 from mdiclient within w_main

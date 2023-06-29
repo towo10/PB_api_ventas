@@ -13,8 +13,6 @@ end forward
 global variables
 uo_sistema 			guo_sistema
 uo_message		guo_message
-datawindow			gdw_activo
-window				gw_activo,gw_mdi
 end variables
 global type ventas from application
 string appname = "ventas"
@@ -27,7 +25,7 @@ long richtextedittype = 2
 long richtexteditx64type = 3
 long richtexteditversion = 1
 string richtexteditkey = ""
-string appicon = ""
+string appicon = "..\IMG\icono.ico"
 string appruntimeversion = "19.2.0.2779"
 end type
 global ventas ventas
@@ -50,6 +48,7 @@ destroy(message)
 end on
 
 event open;string ls_path,ls_error
+Integer	li_error
 
 guo_sistema 	= create uo_sistema
 guo_message	= create	uo_message
@@ -59,7 +58,7 @@ if guo_sistema.uof_cargar_config(ls_path,ls_error) then
 	MessageBox('Carga de Configuración',ls_error,StopSign!)
 	return
 end if
-open(w_login_v2)
+open(w_login)
 end event
 
 event close;destroy guo_sistema
