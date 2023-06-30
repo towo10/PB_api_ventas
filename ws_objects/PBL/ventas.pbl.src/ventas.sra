@@ -14,6 +14,7 @@ global variables
 uo_sistema 			guo_sistema
 uo_message		guo_message
 end variables
+
 global type ventas from application
 string appname = "ventas"
 string themepath = "C:\Program Files (x86)\Appeon\PowerBuilder 19.0\IDE\theme"
@@ -59,6 +60,7 @@ if guo_sistema.uof_cargar_config(ls_path,ls_error) then
 	return
 end if
 open(w_login)
+//open(w_main_docker)
 end event
 
 event close;destroy guo_sistema
