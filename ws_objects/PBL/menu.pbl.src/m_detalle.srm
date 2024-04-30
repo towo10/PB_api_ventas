@@ -1,0 +1,257 @@
+﻿$PBExportHeader$m_detalle.srm
+forward
+global type m_detalle from menu
+end type
+type m_agregar from menu within m_detalle
+end type
+type m_eliminar from menu within m_detalle
+end type
+type m_0 from menu within m_detalle
+end type
+type m_buscar from menu within m_detalle
+end type
+type m_2 from menu within m_detalle
+end type
+type m_comentario from menu within m_detalle
+end type
+global type m_detalle from menu
+m_agregar m_agregar
+m_eliminar m_eliminar
+m_0 m_0
+m_buscar m_buscar
+m_2 m_2
+m_comentario m_comentario
+end type
+end forward
+
+global type m_detalle from menu
+m_agregar m_agregar
+m_eliminar m_eliminar
+m_0 m_0
+m_buscar m_buscar
+m_2 m_2
+m_comentario m_comentario
+end type
+global m_detalle m_detalle
+
+on m_detalle.create
+m_detalle=this
+call super::create
+this.text = "m_detalle"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_agregar=create m_agregar
+this.m_eliminar=create m_eliminar
+this.m_0=create m_0
+this.m_buscar=create m_buscar
+this.m_2=create m_2
+this.m_comentario=create m_comentario
+this.Item[UpperBound(this.Item)+1]=this.m_agregar
+this.Item[UpperBound(this.Item)+1]=this.m_eliminar
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_buscar
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_comentario
+end on
+
+on m_detalle.destroy
+call super::destroy
+destroy(this.m_agregar)
+destroy(this.m_eliminar)
+destroy(this.m_0)
+destroy(this.m_buscar)
+destroy(this.m_2)
+destroy(this.m_comentario)
+end on
+
+type m_agregar from menu within m_detalle
+end type
+
+on m_agregar.create
+call super::create
+this.text = "Agregar"
+this.menuimage = "..\img\agregar_fila_16px.png"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_agregar.destroy
+call super::destroy
+end on
+
+event clicked;gdw_activo.triggerevent('ue_detagregar')
+end event
+
+type m_eliminar from menu within m_detalle
+end type
+
+on m_eliminar.create
+call super::create
+this.text = "Eliminar"
+this.menuimage = "..\img\eliminar_fila_16px.png"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_eliminar.destroy
+call super::destroy
+end on
+
+event clicked;gdw_activo.triggerevent('ue_eliminar')
+end event
+
+type m_0 from menu within m_detalle
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_buscar from menu within m_detalle
+end type
+
+on m_buscar.create
+call super::create
+this.text = "Buscar"
+this.menuimage = "..\img\buscar_fila_16px.png"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_buscar.destroy
+call super::destroy
+end on
+
+event clicked;gdw_activo.triggerevent('ue_buscar')
+end event
+
+type m_2 from menu within m_detalle
+end type
+
+on m_2.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_comentario from menu within m_detalle
+end type
+
+on m_comentario.create
+call super::create
+this.text = "Comentario"
+this.menuimage = "..\img\comentario_fila_16px.png"
+this.menustyle = contemporarymenu!
+this.menubackcolor = 16777215
+this.menuhighlightcolor = 8388608
+this.textsize = -8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16777215
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_comentario.destroy
+call super::destroy
+end on
+
+event clicked;gdw_activo.triggerevent('ue_comentario')
+end event
+

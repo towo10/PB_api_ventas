@@ -12,8 +12,7 @@ end forward
 
 global variables
 uo_sistema 			guo_sistema
-datawindow			gdw_activo
-window				gw_activo,gw_mdi
+uo_message		guo_message
 end variables
 
 global type ventas from application
@@ -27,7 +26,7 @@ long richtextedittype = 2
 long richtexteditx64type = 3
 long richtexteditversion = 1
 string richtexteditkey = ""
-string appicon = ""
+string appicon = "..\IMG\icono.ico"
 string appruntimeversion = "19.2.0.2779"
 end type
 global ventas ventas
@@ -50,17 +49,22 @@ destroy(message)
 end on
 
 event open;string ls_path,ls_error
+Integer	li_error
 
 guo_sistema 	= create uo_sistema
-ls_path 			= GetCurrentDirectory() + '\info\system.db'
+guo_message	= create	uo_message
+ls_path 			= GetCurrentDirectory() + '\info\data.db'
 
 if guo_sistema.uof_cargar_config(ls_path,ls_error) then 
 	MessageBox('Carga de Configuración',ls_error,StopSign!)
 	return
 end if
 open(w_login)
+//open(w_main_docker)
 end event
 
 event close;destroy guo_sistema
+destroy guo_message
+disconnect using sqlca;
 end event
 

@@ -1,0 +1,11 @@
+﻿$PBExportHeader$f_language.srf
+global type f_language from function_object
+end type
+
+forward prototypes
+global function string f_language (string as_objeto)
+end prototypes
+
+global function string f_language (string as_objeto);return guo_sistema.uof_language(as_objeto)
+end function
+
